@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.view.WelcomingController">
+   <children>
+      <ImageView fitHeight="107.0" fitWidth="384.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="458.0" fitWidth="328.0" layoutX="564.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/casher.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="enter" contentDisplay="GRAPHIC_ONLY" layoutX="127.0" layoutY="128.0" mnemonicParsing="false" onAction="#initialize" prefHeight="188.0" prefWidth="396.0" style="-fx-background-radius: 40;" text="enter">
+         <graphic>
+            <ImageView fitHeight="180.0" fitWidth="398.0" style="-fx-border-radius: 20pt;">
+               <image>
+                  <Image url="@images/enter.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="register" contentDisplay="GRAPHIC_ONLY" layoutX="127.0" layoutY="330.0" mnemonicParsing="false" onAction="#initialize" style="-fx-background-radius: 40;" text="register">
+         <graphic>
+            <ImageView fitHeight="180.0" fitWidth="398.0">
+               <image>
+                  <Image url="@images/register.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
