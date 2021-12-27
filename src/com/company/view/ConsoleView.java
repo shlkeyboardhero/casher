@@ -112,7 +112,7 @@ public class ConsoleView extends Controler {
                         }
                     }
                     Client Client;
-                    Client = createClient(firstName, secondName, patronymic);
+                    Client = createClient(firstName, secondName, patronymic, null);
                     Client.setPIN(PIN);
                     System.out.println("\f");
                     System.out.println("--------------------Банкомат-------------------------");

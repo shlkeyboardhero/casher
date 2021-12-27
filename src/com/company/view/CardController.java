@@ -6,10 +6,17 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import com.company.control.Controler;
+import com.company.dto.ClientCardDTO;
+import com.company.model.Client;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
 
 public class CardController {
 
@@ -33,17 +40,17 @@ public class CardController {
     void initialize() {
         next.setDisable(true);
         next.setOnAction(event -> {
-
-            try {
-                Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                gameController.createMainView(primaryStage);
-            } catch (IOException e) {
-                e.printStackTrace();
+            Long result = Long.parseLong(cardNumber.getText());
+            if (result == null)
+                createDialogWindow();
+            else {
+                try {
+                    Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    gameController.swapPINView(primaryStage, result);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-
-            //createDialogWindow();
-
-            cardNumber.getText();
         });
         back.setOnAction(event -> {
             try {
@@ -78,6 +85,13 @@ public class CardController {
         dialog.setContentText("Пользователя с таким номером карты нет в системе! Проверьте введеные данные.");
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.show();
+    }
+
+    public String checking(Long cardNumber){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String output = restTemplate.getForObject("http://localhost:8080/reg/check", String.class);
+        return output;
     }
 
     TextFormatter<String> tf = new TextFormatter<String>(TextFormatter.IDENTITY_STRING_CONVERTER, "52",filter);

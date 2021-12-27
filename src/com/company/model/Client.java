@@ -3,12 +3,42 @@ package com.company.model;
 public class Client {
 
     private String firstName;
-    private String secondName;
+    private String lastName;
     private String patronymic;
     private Long cardNumber;
     private int PIN;//маленькими
     private int counterPIN = 0;
     private int Cash;
+    private String session = null;
+
+    public String getSession() {
+        return session;
+    }
+
+    public void setSession(String session) {
+        this.session = session;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    private String id;
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
+    }
+
+    private String passport;
     private boolean ban = false;// удалить
 
     public Long getCardNumber() {
@@ -41,11 +71,19 @@ public class Client {
         this.PIN = PIN;
     }
 
-    public Client(String firstName, String secondName, String patronymic, Long cardNumber) {
+    public Client(String firstName, String lastName, String patronymic, Long cardNumber, String passport) {
         this.firstName = firstName;
-        this.secondName = secondName;
+        this.lastName = lastName;
         this.patronymic = patronymic;
         this.cardNumber = cardNumber;
+        this.passport = passport;
+    }
+
+    public Client(){}
+
+
+    public Client(String id){
+        this.id = id;
     }
 
     public int getCash() {
@@ -64,12 +102,12 @@ public class Client {
         this.firstName = firstName;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPatronymic() {

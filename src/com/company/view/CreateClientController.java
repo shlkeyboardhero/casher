@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import com.company.control.Controler;
+import com.company.model.Client;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -35,6 +36,9 @@ public class CreateClientController {
     private TextField otch;
 
     @FXML
+    private TextField passport;
+
+    @FXML
     private TextField firstname;
 
     @FXML
@@ -54,10 +58,12 @@ public class CreateClientController {
         otch.setOnKeyTyped(event -> {refreshNextButton();});
         lastname.setOnKeyTyped(event -> {refreshNextButton();});
         firstname.setOnKeyTyped(event -> {refreshNextButton();});
+        passport.setTextFormatter(new TextFormatter<String>(filter2));
+        passport.setOnKeyTyped(event -> {refreshNextButton();});
         next.setOnAction(event -> {
             try {
             Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gameController.swapPINView(primaryStage);
+            gameController.swapPINView(primaryStage, new Client(firstname.getText(), lastname.getText(), otch.getText(), gameController.randCard(), passport.getText()));
         } catch (IOException e) {
             e.printStackTrace();
         }});
@@ -71,9 +77,17 @@ public class CreateClientController {
         return null;
     };
 
+    UnaryOperator<TextFormatter.Change> filter2 = change -> {
+        String s = change.getControlNewText();
+        if (s.matches("\\d{0,10}")) {
+            return change;
+        }
+        return null;
+    };
+
 
     private void refreshNextButton() {
-        if (firstname.getText().length() > 3 && lastname.getText().length() > 3 && otch.getText().length() > 3)
+        if (firstname.getText().length() > 3 && lastname.getText().length() > 3 && otch.getText().length() > 3 && passport.getText().length() > 9)
             next.setDisable(false);
         else
             next.setDisable(true);

@@ -54,15 +54,15 @@ public class Controler {
         return currentClient.isBan();
     }
 
-    public Client createClient(String firstName, String secondName, String patronymic) {
+    public Client createClient(String firstName, String secondName, String patronymic, String passport) {
         long cardNumber = randCard();
-        Client tempClient = new Client(firstName, secondName, patronymic, cardNumber);
+        Client tempClient = new Client(firstName, secondName, patronymic, cardNumber, passport);
         clientList.put(cardNumber, tempClient);
         return tempClient;
     }
 
     public String getFIO() {
-        return currentClient.getSecondName() + " " + currentClient.getFirstName() + " " + currentClient.getPatronymic();
+        return currentClient.getLastName() + " " + currentClient.getFirstName() + " " + currentClient.getPatronymic();
     }
 
     public Long randCard() {
@@ -108,6 +108,9 @@ public class Controler {
     public void getClientFromDB(String cardNumber){
 
     }
+
+
+
 
 
     public void getBaned() {
@@ -168,7 +171,7 @@ public class Controler {
         }
     }
 
-    public void createMainView(Stage primaryStage) throws IOException{
+    public void createMainView(Stage primaryStage, Client client) throws IOException{
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -176,7 +179,7 @@ public class Controler {
                             "/com/company/view/main.fxml"));
             root = loader.load();
             MainController controllerEditBook = loader.getController(); //получаем контроллер для второй формы
-            controllerEditBook.setGameController(this);
+            controllerEditBook.setGameController(this, client);
             primaryStage.setScene(new Scene(root, 890, 560));
             primaryStage.show();
         } catch (IOException e) {
@@ -184,7 +187,7 @@ public class Controler {
         }
     }
 
-    public void swapPINView(Stage primaryStage) throws IOException{
+    public void swapPINView(Stage primaryStage, Client client) throws IOException{
         Scene root = null;
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -192,7 +195,23 @@ public class Controler {
                             "/com/company/view/makeACCPIN.fxml"));
             root = loader.load();
             PINController controllerEditBook = loader.getController(); //получаем контроллер для второй формы
-            controllerEditBook.setGameController(this);
+            controllerEditBook.setGameController(this, client);
+            primaryStage.setScene(root);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void swapPINView(Stage primaryStage, Long cardNumber) throws IOException{
+        Scene root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/com/company/view/makeACCPIN.fxml"));
+            root = loader.load();
+            PINController controllerEditBook = loader.getController(); //получаем контроллер для второй формы
+            controllerEditBook.setGameController(this, cardNumber);
             primaryStage.setScene(root);
             primaryStage.show();
         } catch (IOException e) {
