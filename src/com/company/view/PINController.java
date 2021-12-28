@@ -38,14 +38,14 @@ public class PINController {
     @FXML
     void initialize() {
         next.setOnAction(event -> {
-            /*Client client = login(cardNumber, Integer.parseInt(passworld.getText()));
+            Client client = login(cardNumber, Integer.parseInt(passworld.getText()));
             try {
                 Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 gameController.createMainView(primaryStage, client);
             } catch (IOException e) {
                 e.printStackTrace();
-            }*/
-            extracted(event);
+            }
+            //extracted(event);
         });
 
         passworld.setTextFormatter(new TextFormatter<String>(filter));

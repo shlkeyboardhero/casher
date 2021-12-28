@@ -1,5 +1,8 @@
 package com.company.view;
 
+import lombok.*;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Base64;
@@ -9,9 +12,13 @@ import com.company.control.Controler;
 import com.company.dto.TransferDTO;
 import com.company.model.Client;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.util.Pair;
 import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -72,6 +79,12 @@ public class MainController {
             HttpEntity<String> request = new HttpEntity<String>(headers);
 
             ResponseEntity<String> result = restTemplate.exchange("http://localhost:8080/logout", HttpMethod.GET, request, String.class);
+            try {
+                Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                gameController.createWelcomingView(primaryStage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
@@ -100,5 +113,9 @@ public class MainController {
         Integer result = restTemplate.postForObject("http://localhost:8080/card/transfer", request, Integer.class);
 
         return result;
+    }
+
+    public void createDialog(){
+
     }
 }
